@@ -1,15 +1,106 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import com.sun.tools.javac.Main;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+class RectanglePlus implements Relatable {
+    public int width = 0;
+    public int height = 0;
+   // public Point origin;
+
+    public void setHeightWidth(int height,int width){
+        this.width = width;
+        this.height = height;
+    }
+
+    // four constructors
+//    public RectanglePlus() {
+//        origin = new Point(0, 0);
+//    }
+//    public RectanglePlus(Point p) {
+//        origin = p;
+//    }
+//    public RectanglePlus(int w, int h) {
+//        origin = new Point(0, 0);
+//        width = w;
+//        height = h;
+//    }
+//    public RectanglePlus(Point p, int w, int h) {
+//        origin = p;
+//        width = w;
+//        height = h;
+//    }
+//
+//    // a method for moving the rectangle
+//    public void move(int x, int y) {
+//        origin.x = x;
+//        origin.y = y;
+//    }
+
+    // a method for computing
+    // the area of the rectangle
+    public int getArea() {
+        return width * height;
+    }
+
+    // a method required to implement
+    // the Relatable interface
+    public int isLargerThan(Relatable other) {
+        RectanglePlus otherRect = (RectanglePlus)other;
+        if (this.getArea() < otherRect.getArea())
+            return -1;
+        else if (this.getArea() > otherRect.getArea())
+            return 1;
+        else
+            return 0;
+    }
+
+    public static Object findLargest(Object obj1, Object obj2) {
+         Relatable readable1 = (RectanglePlus) obj1;
+         Relatable readable2 = (RectanglePlus) obj2;
+         if (readable1.isLargerThan(readable2) > 0){
+             return obj1;
+         }else{
+             return obj2;
+         }
+    }
+    public static Object findSmallest(Object obj1, Object obj2) {
+        Relatable readable1 = (RectanglePlus) obj1;
+        Relatable readable2 = (RectanglePlus) obj2;
+        if (readable1.isLargerThan(readable2) < 0){
+            return obj1;
+        }else{
+            return obj2;
         }
     }
+    public static boolean isEqual(Object obj1, Object obj2) {
+        Relatable readable1 = (RectanglePlus) obj1;
+        Relatable readable2 = (RectanglePlus) obj2;
+        if (readable1.isLargerThan(readable2) == 0){
+            return Boolean.TRUE;
+        }else{
+            return Boolean.FALSE;
+        }
+    }
+
+    public static void main(String[] args) {
+        RectanglePlus rectangle = new RectanglePlus();
+        RectanglePlus rectangle2 = new RectanglePlus();
+
+        rectangle.setHeightWidth(10,11);
+        rectangle2.setHeightWidth(10,10);
+
+        System.out.println(rectangle.isLargerThan(rectangle2));
+
+        System.out.println(findLargest(rectangle,rectangle2).getClass());
+    }
+
+
+}
+
+interface Relatable {
+
+    // this (object calling isLargerThan)
+    // and other must be instances of
+    // the same class returns 1, 0, -1
+    // if this is greater than,
+    // equal to, or less than other
+    int isLargerThan(Relatable other);
 }
