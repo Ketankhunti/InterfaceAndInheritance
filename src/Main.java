@@ -1,5 +1,9 @@
 import com.sun.tools.javac.Main;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Comparator;
+
 class RectanglePlus implements Relatable {
     public int width = 0;
     public int height = 0;
@@ -83,6 +87,7 @@ class RectanglePlus implements Relatable {
     public static void main(String[] args) {
         RectanglePlus rectangle = new RectanglePlus();
         RectanglePlus rectangle2 = new RectanglePlus();
+        String[] s1 = {"ketan"};
 
         rectangle.setHeightWidth(10,11);
         rectangle2.setHeightWidth(10,10);
@@ -91,6 +96,7 @@ class RectanglePlus implements Relatable {
 
         System.out.println(findLargest(rectangle,rectangle2).getClass());
     }
+
 
 
 }
@@ -103,4 +109,8 @@ interface Relatable {
     // if this is greater than,
     // equal to, or less than other
     int isLargerThan(Relatable other);
+
+    default boolean isEverythingOk(boolean b){
+        return b;
+    }
 }
