@@ -70,7 +70,7 @@ class RectanglePlus implements Relatable {
             return obj2;
         }
     }
-    public static boolean isEqual(Object obj1, Object obj2) {
+    public static Boolean isEqual(Object obj1, Object obj2) {
         Relatable readable1 = (RectanglePlus) obj1;
         Relatable readable2 = (RectanglePlus) obj2;
         if (readable1.isLargerThan(readable2) == 0){
